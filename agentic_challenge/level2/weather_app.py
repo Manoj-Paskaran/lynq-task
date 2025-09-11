@@ -14,6 +14,7 @@ load_dotenv()
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY", "")
 OPENWEATHER_API_KEY = os.getenv("OPENWEATHER_API_KEY", "")
 
+MODEL_NAME = "gemini-2.5-flash"
 SYSTEM_PROMPT = """
 You are a helpful assistant that provides weather information.
 You have access to a tool that can fetch current weather data for any city in any country in the world.
@@ -41,7 +42,7 @@ async def ask_gemini(prompt: str) -> str:
 
     async with mcp_client:
         response = await gemini_client.aio.models.generate_content(
-            model="gemini-2.5-flash",
+            model=MODEL_NAME,
             contents=prompt,
             config=GenerateContentConfig(
                 tools=[mcp_client.session], system_instruction=SYSTEM_PROMPT
@@ -57,7 +58,6 @@ def main():
     if "messages" not in st.session_state:
         st.session_state.messages = []
 
-    # Replay prior conversation
     for message in st.session_state.messages:
         with st.chat_message(message["role"]):
             st.markdown(message["content"])
@@ -66,13 +66,11 @@ def main():
         "Ask about the weather (e.g., Is it raining in Hyderabad today?)"
     )
     if prompt:
-        # Show user turn
         st.session_state.messages.append({"role": "user", "content": prompt})
 
         with st.chat_message("user"):
             st.markdown(prompt)
 
-        # Synchronous call that runs async under the hood
         with st.chat_message("assistant"):
             try:
                 response_text = asyncio.run(ask_gemini(str(st.session_state.messages)))
@@ -81,7 +79,6 @@ def main():
                 response_text = f"Error: {e}"
                 st.error(response_text)
 
-        # Persist assistant turn
         st.session_state.messages.append(
             {"role": "assistant", "content": response_text or ""}
         )

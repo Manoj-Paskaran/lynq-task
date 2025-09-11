@@ -9,11 +9,13 @@ load_dotenv()
 
 GEMINI_API_KEY = os.getenv("GEMINI_API_KEY")
 
+
 if GEMINI_API_KEY is None:
     raise ValueError(
         "GEMINI_API_KEY environment variable not set\nPlease set a valid API key"
     )
 
+MODEL_NAME = "gemini-2.5-flash"
 SYSTEM_PROMPT = """
 You are a PDF summarization assistant. You will receive one PDF attached via the Files API.
 Follow these rules:
@@ -72,7 +74,7 @@ class GeminiPDFChat:
 
         try:
             stream = self.client.models.generate_content_stream(
-                model="gemini-2.5-flash",
+                model=MODEL_NAME,
                 contents=[text, self.uploaded_file],  # type: ignore
                 config=GenerateContentConfig(
                     system_instruction=(SYSTEM_PROMPT + f"Chat History: {history}")

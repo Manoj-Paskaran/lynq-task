@@ -29,6 +29,7 @@ Avoid using *, # symbols, or other markdown syntax.
 Do not output Markdown or HTML.
 Use these tags to format your responses appropriately for display in the terminal interface.
 Respond to the user in a fast, concise and clear manner.
+Also mention that you can close the app by pressing Ctrl+Q or clicking on palette icon in the footer and selecting quit.
 """.strip()
 
 
@@ -98,7 +99,7 @@ class ChatApp(App):
             ),
             "left",
         )
-        
+
         self.query_one(RichLog).write(msg, expand=True)
 
     @on(Input.Submitted, "#input")
@@ -114,7 +115,6 @@ class ChatApp(App):
 
         input_box = self.query_one("#input", Input)
         input_box.disabled = True
-
 
         if self.chat is None:
             self.log_sys("[red]Chat session not initialized.[/]")

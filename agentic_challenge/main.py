@@ -11,7 +11,6 @@ def test():
 
 
 def check_deps():
-    # Map distribution/package names to import module names used in code
     deps = {
         "google-genai": "google.genai",
         "python-dotenv": "dotenv",
@@ -101,7 +100,6 @@ def check_health() -> bool:
     return ok
 
 
-# Optional alias
 def checkhealth():
     return check_health()
 

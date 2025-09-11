@@ -1,9 +1,9 @@
 # lynq-task
 
 Small multi-app workspace showcasing:
-- A PDF summarizer (Gradio) backed by Google Gemini with streaming
 - A terminal LLM chat (Textual)
-- A simple weather app (Streamlit + OpenWeather)
+- A PDF summarizer (Gradio) backed by Google Gemini
+- A simple weather app (Streamlit + OpenWeatherAPI + Google Gemini)
 
 
 ## Prerequisites
@@ -23,7 +23,6 @@ Put these in a `.env` file in the project root (auto-loaded by python-dotenv):
 GEMINI_API_KEY=your_gemini_key
 OPENWEATHER_API_KEY=your_openweather_key
 ```
-
 
 ## Install dependencies
 You generally don’t need an explicit install step: `uv run` will resolve & run using `pyproject.toml`/`uv.lock`.
