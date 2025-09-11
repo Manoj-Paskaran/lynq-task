@@ -1,0 +1,26 @@
+[project]
+name = "lynq-task"
+version = "0.1.0"
+requires-python = ">=3.12"
+dependencies = [
+    "google-genai>=1.33.0",
+    "python-dotenv>=1.1.1",
+    "textual-dev>=1.7.0",
+    "fastmcp>=0.1.0",
+    "streamlit[charts]>=1.37.0",
+    "httpx>=0.28.1",
+    "uvicorn>=0.35.0",
+    "ipykernel>=6.30.1",
+    "gradio>=5.44.1",
+]
+
+[project.scripts]
+llm-call = "agentic_challenge.main:run_llm_app"
+pdf-reader = "agentic_challenge.level1.pdf_reader:main"
+weather-app = "agentic_challenge.main:run_weather_app"
+test = "agentic_challenge.main:test"
+check-health = "agentic_challenge.main:check_health"
+checkhealth = "agentic_challenge.main:checkhealth"
+
+[tool.uv]
+package = true
